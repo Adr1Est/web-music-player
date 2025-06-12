@@ -22,6 +22,7 @@ function Reproductor(){
     setTimeout(() => {
       if(audioRef.current) {
         audioRef.current.load()
+        audioRef.current.volume = 0.3
         audioRef.current.play()
           .then(() => {
             setIsPlaying(true)
@@ -34,7 +35,6 @@ function Reproductor(){
   const handleLastSong = (songPosition) => {
     const lastSongPosition = songPosition === 1 ? songPosition : songPosition - 1
     const lastSong = songList.filter((song) => song.position === lastSongPosition)
-    console.log(lastSong[0])
     setCurrentSong(lastSong[0].preview)
     setSongNameArtistPosition({ title: lastSong[0].title_short, singer: lastSong[0].artist.name, number: lastSong[0].position })
     setTimeout(() => {
@@ -52,7 +52,6 @@ function Reproductor(){
   const handleNextSong = (songPosition) => {
     const nextSongPosition = songPosition === songList.length ? songPosition : songPosition + 1
     const nextSong = songList.filter((song) => song.position === nextSongPosition)
-    console.log(nextSong[0])
     setCurrentSong(nextSong[0].preview)
     setSongNameArtistPosition({ title: nextSong[0].title_short, singer: nextSong[0].artist.name, number: nextSong[0].position })
     setTimeout(() => {
