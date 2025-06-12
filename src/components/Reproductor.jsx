@@ -14,9 +14,7 @@ function Reproductor(){
 
   const audioRef = useRef(null)
 
-  const handleSongClick = (songUrl, name, artist, position) => {
-    setCurrentSong({ title: name, singer: artist, number: position, preview: songUrl })
-
+  const handleAudioLoad= () => {
     setTimeout(() => {
       if(audioRef.current) {
         audioRef.current.load()
@@ -30,36 +28,23 @@ function Reproductor(){
     }, 0)
   }
 
+  const handleSongClick = (songUrl, name, artist, position) => {
+    setCurrentSong({ title: name, singer: artist, number: position, preview: songUrl })
+    handleAudioLoad()
+  }
+
   const handleLastSong = (songPosition) => {
     const lastSongPosition = songPosition === 1 ? songPosition : songPosition - 1
     const lastSong = songList.filter((song) => song.position === lastSongPosition)
     setCurrentSong({ title: lastSong[0].title_short, singer: lastSong[0].artist.name, number: lastSong[0].position, preview: lastSong[0].preview})
-    setTimeout(() => {
-      if(audioRef.current){
-        audioRef.current.load()
-        audioRef.current.play()
-          .then(() => {
-            setIsPlaying(true)
-          })
-          .catch(error => {console.error(error)})
-      }
-    }, 0)
+    handleAudioLoad()
   }
 
   const handleNextSong = (songPosition) => {
     const nextSongPosition = songPosition === songList.length ? songPosition : songPosition + 1
     const nextSong = songList.filter((song) => song.position === nextSongPosition)
     setCurrentSong({ title: nextSong[0].title_short, singer: nextSong[0].artist.name, number: nextSong[0].position, preview: nextSong[0].preview})
-    setTimeout(() => {
-      if(audioRef.current){
-        audioRef.current.load()
-        audioRef.current.play()
-          .then(() => {
-            setIsPlaying(true)
-          })
-          .catch(error => {console.error(error)})
-      }
-    }, 0)
+    handleAudioLoad()
   }
 
   useEffect(()=>{
