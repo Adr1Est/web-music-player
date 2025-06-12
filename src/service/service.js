@@ -7,13 +7,4 @@ const getAllSongs = async () => {
   return data;
 }
 
-const getAllFX = async () => {
-  const response = await fetch('https://playground.4geeks.com/sound/effects', {
-    method: 'GET',
-  });
-
-  const data = await response.json();
-  return data;
-}
-
-export { getAllSongs, getAllFX }
+export { getAllSongs }
