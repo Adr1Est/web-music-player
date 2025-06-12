@@ -71,7 +71,7 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
         </button>
       </div>
       
-      <audio ref={audioRef} src={currentSong}></audio>
+      <audio ref={audioRef} src={currentSong} onEnded={() => setIsPlaying(false)}></audio>
     </div>
   )
 }
