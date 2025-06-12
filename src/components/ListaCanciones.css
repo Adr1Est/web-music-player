@@ -1,0 +1,14 @@
+.lista-canciones::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+.lista-canciones::-webkit-scrollbar-track {
+  background: #01663060;
+  border-radius: 10px;
+}
+
+.lista-canciones::-webkit-scrollbar-thumb {
+  background-color: #29af6860;
+  border-radius: 10px;
+}

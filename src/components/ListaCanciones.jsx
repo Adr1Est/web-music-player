@@ -1,3 +1,4 @@
+import './ListaCanciones.css'
 import SongCard from "./SongCard"
 
 function ListaCanciones({songList, handleClick}){
@@ -11,7 +12,7 @@ function ListaCanciones({songList, handleClick}){
   }
 
   return(
-    <div className="flex flex-col gap-0.5 w-full h-full rounded-t-2xl p-3 overflow-y-auto">
+    <div className="flex flex-col gap-0.5 w-full h-full rounded-t-2xl p-3 overflow-y-auto lista-canciones">
       {
         songList.map((track) => (
           <SongCard key={`${track.id}`} songNumber={track.position} songTitle={track.title} songArtist={track.artist.name} songURL={track.preview} handleClick={handleClick}/>
