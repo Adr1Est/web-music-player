@@ -1,1 +1,1 @@
-# web-music-player
+# Web Music Player

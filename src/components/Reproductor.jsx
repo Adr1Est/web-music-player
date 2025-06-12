@@ -1,0 +1,67 @@
+import ListaCanciones from "./ListaCanciones"
+import Botones from "./Botones"
+import { useEffect, useRef, useState } from "react"
+import { getAllSongs, getAllFX } from "../service/service.js"
+
+function Reproductor(){
+  const [songList, setSongList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [currentSong, setCurrentSong] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [songNameAndArtist, setSongNameAndArtist] = useState({});
+
+  const audioRef = useRef(null)
+
+  const handleSongClick = (songUrl, name, artist) => {
+    setCurrentSong(songUrl)
+    setSongNameAndArtist({ title: name, singer: artist })
+
+    setTimeout(() => {
+      if(audioRef.current) {
+        audioRef.current.load()
+        audioRef.current.play()
+          .then(() => {
+            setIsPlaying(true)
+          })
+          .catch(error => {console.error(error)})
+      }
+    }, 0)
+  }
+
+  useEffect(()=>{
+    const getSongListFromAPI = async () => {
+      const dataFromAPI = await getAllSongs()
+      setSongList(dataFromAPI)
+      setIsLoading(false)
+    }
+
+    getSongListFromAPI()
+  }, [])
+
+  useEffect(()=>{
+    console.log(songList);
+  }), [songList]
+
+  if(isLoading){
+    return(
+      <div className='flex flex-col justify-center items-center w-160 h-170 rounded-3xl bg-green-800'>
+        <h1 className="text-green-300">Cargando...</h1>
+      </div>
+    )
+  }
+
+  return (
+    <div className='flex flex-col w-160 h-170 rounded-3xl bg-green-800'>
+      <ListaCanciones songList={songList} handleClick={handleSongClick}/>
+      <Botones 
+        audioRef={audioRef}
+        currentSong={currentSong}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        songNameAndArtist={songNameAndArtist}
+      />
+    </div>
+  )
+}
+
+export default Reproductor
