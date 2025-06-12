@@ -9,15 +9,13 @@ import 'ldrs/react/Hourglass.css'
 function Reproductor(){
   const [songList, setSongList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [currentSong, setCurrentSong] = useState(null);
+  const [currentSong, setCurrentSong] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
-  const [songNameArtistPosition, setSongNameArtistPosition] = useState({});
 
   const audioRef = useRef(null)
 
   const handleSongClick = (songUrl, name, artist, position) => {
-    setCurrentSong(songUrl)
-    setSongNameArtistPosition({ title: name, singer: artist, number: position })
+    setCurrentSong({ title: name, singer: artist, number: position, preview: songUrl })
 
     setTimeout(() => {
       if(audioRef.current) {
@@ -35,8 +33,7 @@ function Reproductor(){
   const handleLastSong = (songPosition) => {
     const lastSongPosition = songPosition === 1 ? songPosition : songPosition - 1
     const lastSong = songList.filter((song) => song.position === lastSongPosition)
-    setCurrentSong(lastSong[0].preview)
-    setSongNameArtistPosition({ title: lastSong[0].title_short, singer: lastSong[0].artist.name, number: lastSong[0].position })
+    setCurrentSong({ title: lastSong[0].title_short, singer: lastSong[0].artist.name, number: lastSong[0].position, preview: lastSong[0].preview})
     setTimeout(() => {
       if(audioRef.current){
         audioRef.current.load()
@@ -52,8 +49,7 @@ function Reproductor(){
   const handleNextSong = (songPosition) => {
     const nextSongPosition = songPosition === songList.length ? songPosition : songPosition + 1
     const nextSong = songList.filter((song) => song.position === nextSongPosition)
-    setCurrentSong(nextSong[0].preview)
-    setSongNameArtistPosition({ title: nextSong[0].title_short, singer: nextSong[0].artist.name, number: nextSong[0].position })
+    setCurrentSong({ title: nextSong[0].title_short, singer: nextSong[0].artist.name, number: nextSong[0].position, preview: nextSong[0].preview})
     setTimeout(() => {
       if(audioRef.current){
         audioRef.current.load()
@@ -100,7 +96,6 @@ function Reproductor(){
         currentSong={currentSong}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        songNameArtistPosition={songNameArtistPosition}
         handleLastSong={handleLastSong}
         handleNextSong={handleNextSong}
       />

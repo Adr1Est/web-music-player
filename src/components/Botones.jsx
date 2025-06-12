@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LineWobble } from 'ldrs/react'
 import 'ldrs/react/LineWobble.css'
 
-function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtistPosition, handleLastSong, handleNextSong}){
+function Botones({audioRef, currentSong, isPlaying, setIsPlaying, handleLastSong, handleNextSong}){
   const handlePlay = () => {
     if (isPlaying){
       setIsPlaying(false)
@@ -32,7 +32,7 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
       <div className='flex flex-col justify-center ms-3 w-1/3 h-full overflow-y-auto'>
         <p className='w-full text-sm'>
           <FontAwesomeIcon className='mr-2' icon="fa-record-vinyl" />
-          {songNameArtistPosition.title ? songNameArtistPosition.title : <LineWobble
+          {currentSong.title ? currentSong.title : <LineWobble
             size="50"
             stroke="3"
             bgOpacity="0.1"
@@ -42,7 +42,7 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
         </p>
         <p className='w-full text-sm'>
           <FontAwesomeIcon className='mr-2' icon="fa-user" />
-          {songNameArtistPosition.singer? songNameArtistPosition.singer : <LineWobble
+          {currentSong.singer? currentSong.singer : <LineWobble
             size="50"
             stroke="3"
             bgOpacity="0.1"
@@ -52,13 +52,13 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
         </p>
       </div>
       <div className='flex flex-row w-1/3 items-center gap-7 justify-center'>
-        <button className='text-3xl hover:text-purple-700 cursor-pointer'onClick={() => handleLastSong(songNameArtistPosition.number)}>
+        <button className='text-3xl hover:text-purple-700 cursor-pointer'onClick={() => handleLastSong(currentSong.number)}>
           <FontAwesomeIcon icon="fa-backward-step" /> 
         </button>
         <button className='text-3xl hover:text-purple-700 cursor-pointer' onClick={handlePlay}>
           <FontAwesomeIcon icon={isPlaying ? "fa-pause" : "fa-play"} /> 
         </button>
-        <button className='text-3xl hover:text-purple-700 cursor-pointer' onClick={() => handleNextSong(songNameArtistPosition.number)}>
+        <button className='text-3xl hover:text-purple-700 cursor-pointer' onClick={() => handleNextSong(currentSong.number)}>
            <FontAwesomeIcon icon="fa-forward-step" />
         </button>
       </div>
@@ -71,7 +71,7 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
         </button>
       </div>
       
-      <audio ref={audioRef} src={currentSong} onEnded={() => setIsPlaying(false)}></audio>
+      <audio ref={audioRef} src={currentSong.preview} onEnded={() => setIsPlaying(false)}></audio>
     </div>
   )
 }
