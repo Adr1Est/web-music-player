@@ -11,16 +11,52 @@ function Reproductor(){
   const [isLoading, setIsLoading] = useState(true)
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [songNameAndArtist, setSongNameAndArtist] = useState({});
+  const [songNameArtistPosition, setSongNameArtistPosition] = useState({});
 
   const audioRef = useRef(null)
 
-  const handleSongClick = (songUrl, name, artist) => {
+  const handleSongClick = (songUrl, name, artist, position) => {
     setCurrentSong(songUrl)
-    setSongNameAndArtist({ title: name, singer: artist })
+    setSongNameArtistPosition({ title: name, singer: artist, number: position })
 
     setTimeout(() => {
       if(audioRef.current) {
+        audioRef.current.load()
+        audioRef.current.play()
+          .then(() => {
+            setIsPlaying(true)
+          })
+          .catch(error => {console.error(error)})
+      }
+    }, 0)
+  }
+
+  const handleLastSong = (songPosition) => {
+    const lastSongPosition = songPosition === 1 ? songPosition : songPosition - 1
+    const lastSong = songList.filter((song) => song.position === lastSongPosition)
+    console.log(lastSong[0])
+    setCurrentSong(lastSong[0].preview)
+    setSongNameArtistPosition({ title: lastSong[0].title_short, singer: lastSong[0].artist.name, number: lastSong[0].position })
+    setTimeout(() => {
+      if(audioRef.current){
+        audioRef.current.load()
+        audioRef.current.play()
+          .then(() => {
+            setIsPlaying(true)
+          })
+          .catch(error => {console.error(error)})
+      }
+    }, 0)
+  }
+
+  const handleNextSong = (songPosition) => {
+    const nextSongPosition = songPosition === songList.length ? songPosition : songPosition + 1
+    const nextSong = songList.filter((song) => song.position === nextSongPosition)
+    console.log(nextSong[0])
+    setCurrentSong(nextSong[0].preview)
+    setSongNameArtistPosition({ title: nextSong[0].title_short, singer: nextSong[0].artist.name, number: nextSong[0].position })
+    setTimeout(() => {
+      if(audioRef.current){
         audioRef.current.load()
         audioRef.current.play()
           .then(() => {
@@ -44,10 +80,6 @@ function Reproductor(){
     getSongListFromAPI()
   }, [])
 
-  useEffect(()=>{
-    console.log(songList);
-  }), [songList]
-
   if(isLoading){
     return(
       <div className='flex flex-col justify-center items-center w-160 h-170 rounded-3xl bg-green-800'>
@@ -62,14 +94,16 @@ function Reproductor(){
   }
 
   return (
-    <div className='flex flex-col md:w-160 h-170 rounded-3xl bg-green-800 shadow-2xl shadow-purple-400 transition-shadow duration-1000 overflow-hidden'>
+    <div className='flex flex-col md:w-160 h-170 rounded-3xl bg-green-800 shadow-2xl shadow-purple-400 transition-shadow duration-3000 overflow-hidden'>
       <ListaCanciones songList={songList} handleClick={handleSongClick}/>
       <Botones 
         audioRef={audioRef}
         currentSong={currentSong}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        songNameAndArtist={songNameAndArtist}
+        songNameArtistPosition={songNameArtistPosition}
+        handleLastSong={handleLastSong}
+        handleNextSong={handleNextSong}
       />
     </div>
   )

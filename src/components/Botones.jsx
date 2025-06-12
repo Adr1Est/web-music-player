@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameAndArtist}){
+function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtistPosition, handleLastSong, handleNextSong}){
   const handlePlay = () => {
     if (isPlaying){
       setIsPlaying(false)
@@ -24,20 +24,22 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameAndArt
     audioRef.current.volume += 0.1
   }
 
+  
+
   return(
     <div className="flex flex-row items-center gap-7 justify-between rounded-b-2xl bg-green-600 h-20 w-full">
       <div className='flex flex-col justify-center ms-3 w-1/3 h-full overflow-y-auto'>
-        <p className='w-full text-sm'>{songNameAndArtist.title}</p>
-        <p className='w-full text-sm'>{songNameAndArtist.singer}</p>
+        <p className='w-full text-sm'>{songNameArtistPosition.title}</p>
+        <p className='w-full text-sm'>{songNameArtistPosition.singer}</p>
       </div>
       <div className='flex flex-row w-1/3 items-center gap-7 justify-center'>
-        <button className='text-3xl hover:text-purple-700 cursor-pointer'>
+        <button className='text-3xl hover:text-purple-700 cursor-pointer'onClick={() => handleLastSong(songNameArtistPosition.number)}>
           <FontAwesomeIcon icon="fa-backward-step" /> 
         </button>
         <button className='text-3xl hover:text-purple-700 cursor-pointer' onClick={handlePlay}>
           <FontAwesomeIcon icon={isPlaying ? "fa-pause" : "fa-play"} /> 
         </button>
-        <button className='text-3xl hover:text-purple-700 cursor-pointer'>
+        <button className='text-3xl hover:text-purple-700 cursor-pointer' onClick={() => handleNextSong(songNameArtistPosition.number)}>
            <FontAwesomeIcon icon="fa-forward-step" />
         </button>
       </div>

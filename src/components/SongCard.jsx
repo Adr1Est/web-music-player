@@ -22,7 +22,7 @@ function SongCard({songNumber, songTitle, songArtist, songURL, handleClick}){
           </p>
         </div>
       </div>
-      <button className='mr-5 cursor-pointer' onClick={() => handleClick(songURL, songTitle, songArtist)}>
+      <button className='mr-5 cursor-pointer' onClick={() => handleClick(songURL, songTitle, songArtist, songNumber)}>
         <FontAwesomeIcon className='hover:text-green-50' icon="fa-play"/>
       </button>
     </div>
