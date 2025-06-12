@@ -81,7 +81,7 @@ function Reproductor(){
 
   if(isLoading){
     return(
-      <div className='flex flex-col justify-center items-center md:w-160 h-170 rounded-3xl bg-green-800'>
+      <div className='flex flex-col justify-center items-center w-90 md:w-160 h-170 rounded-3xl bg-green-800'>
         <Hourglass 
           size="70"
           bgOpacity="0.1"
