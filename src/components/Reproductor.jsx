@@ -51,7 +51,7 @@ function Reproductor(){
   }
 
   return (
-    <div className='flex flex-col w-160 h-170 rounded-3xl bg-green-800'>
+    <div className='flex flex-col md:w-160 h-170 rounded-3xl bg-green-800'>
       <ListaCanciones songList={songList} handleClick={handleSongClick}/>
       <Botones 
         audioRef={audioRef}

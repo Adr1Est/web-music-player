@@ -1,5 +1,5 @@
 const getAllSongs = async () => {
-  const response = await fetch(`http://localhost:3000/tracks`, {
+  const response = await fetch(`https://proxy-deezer-api.onrender.com/tracks`, {
     method: 'GET',
   });
 
