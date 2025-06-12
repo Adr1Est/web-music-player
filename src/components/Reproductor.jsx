@@ -35,7 +35,10 @@ function Reproductor(){
     const getSongListFromAPI = async () => {
       const dataFromAPI = await getAllSongs()
       setSongList(dataFromAPI)
-      setIsLoading(false)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 2000)
+        
     }
 
     getSongListFromAPI()
@@ -52,14 +55,14 @@ function Reproductor(){
           size="70"
           bgOpacity="0.1"
           speed="1"
-          color="#B40EE1"
+          color="#C27AFF"
         />
       </div>
     )
   }
 
   return (
-    <div className='flex flex-col md:w-160 h-170 rounded-3xl bg-green-800 overflow-hidden'>
+    <div className='flex flex-col md:w-160 h-170 rounded-3xl bg-green-800 shadow-2xl shadow-purple-400 transition-shadow duration-1000 overflow-hidden'>
       <ListaCanciones songList={songList} handleClick={handleSongClick}/>
       <Botones 
         audioRef={audioRef}
