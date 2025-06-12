@@ -28,7 +28,7 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
   }
 
   return(
-    <div className="flex flex-row items-center gap-7 justify-between rounded-b-2xl bg-green-600 h-20 w-full">
+    <div className="flex flex-row items-center gap-7 sm:justify-between rounded-b-2xl bg-green-600 h-20 w-full">
       <div className='flex flex-col justify-center ms-3 w-1/3 h-full overflow-y-auto'>
         <p className='w-full text-sm'>
           <FontAwesomeIcon className='mr-2' icon="fa-record-vinyl" />
@@ -62,7 +62,7 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, songNameArtist
            <FontAwesomeIcon icon="fa-forward-step" />
         </button>
       </div>
-      <div className='flex flex-row w-1/3 items-center gap-3 justify-center'>
+      <div className='hidden sm:flex flex-row w-1/3 items-center gap-5 justify-center '>
         <button className='hover:text-purple-700 cursor-pointer' onClick={handleVolumeDown}>
           <FontAwesomeIcon icon="fa-volume-down"/>
         </button>
