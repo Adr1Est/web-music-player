@@ -1,12 +1,15 @@
 import ListaCanciones from "./ListaCanciones"
 import Botones from "./Botones"
 import { useEffect, useRef, useState } from "react"
-import { getAllSongs, getAllFX } from "../service/service.js"
+import { getAllSongs } from "../service/service.js"
+import { Hourglass } from 'ldrs/react'
+import 'ldrs/react/Hourglass.css'
+
 
 function Reproductor(){
   const [songList, setSongList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [currentSong, setCurrentSong] = useState("");
+  const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [songNameAndArtist, setSongNameAndArtist] = useState({});
 
@@ -45,7 +48,12 @@ function Reproductor(){
   if(isLoading){
     return(
       <div className='flex flex-col justify-center items-center w-160 h-170 rounded-3xl bg-green-800'>
-        <h1 className="text-green-300">Cargando...</h1>
+        <Hourglass 
+          size="70"
+          bgOpacity="0.1"
+          speed="1"
+          color="#B40EE1"
+        />
       </div>
     )
   }
