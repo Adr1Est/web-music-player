@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LineWobble } from 'ldrs/react'
 import 'ldrs/react/LineWobble.css'
 
-function Botones({audioRef, currentSong, isPlaying, setIsPlaying, handleLastSong, handleNextSong}){
+function Botones({audioRef, currentSong, isPlaying, setIsPlaying, handleLastSong, handleNextSong, setAudioLevel}){
   const handlePlay = () => {
     if (isPlaying){
       setIsPlaying(false)
@@ -21,10 +21,12 @@ function Botones({audioRef, currentSong, isPlaying, setIsPlaying, handleLastSong
 
   const handleVolumeDown = () => {
     audioRef.current.volume -= 0.1
+    setAudioLevel(audioRef.current.volume)
   }
 
   const handleVolumeUp = () => {
     audioRef.current.volume += 0.1
+    setAudioLevel(audioRef.current.volume)
   }
 
   return(

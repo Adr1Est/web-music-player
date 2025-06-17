@@ -11,6 +11,7 @@ function Reproductor(){
   const [isLoading, setIsLoading] = useState(true)
   const [currentSong, setCurrentSong] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioLevel, setAudioLevel] = useState(0.3);
 
   const audioRef = useRef(null)
 
@@ -18,7 +19,7 @@ function Reproductor(){
     setTimeout(() => {
       if(audioRef.current) {
         audioRef.current.load()
-        audioRef.current.volume = 0.3
+        audioRef.current.volume = audioLevel
         audioRef.current.play()
           .then(() => {
             setIsPlaying(true)
@@ -83,6 +84,7 @@ function Reproductor(){
         setIsPlaying={setIsPlaying}
         handleLastSong={handleLastSong}
         handleNextSong={handleNextSong}
+        setAudioLevel={setAudioLevel}
       />
     </div>
   )
